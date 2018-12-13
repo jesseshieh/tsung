@@ -40,7 +40,7 @@
 get_handshake(Host, Path, SubProtocol, Version, Origin, Headers) ->
     {Key, Accept} = gen_accept_key(),
     Req = list_to_binary(["GET ", Path, " HTTP/1.1\r\n",
-                          "Host: ", Host ,"\r\n",
+                          %"Host: ", Host ,"\r\n",
                           "Upgrade: websocket\r\n",
                           "Connection: Upgrade\r\n",
                           "Origin: ",
@@ -201,7 +201,7 @@ parse_frame(_Data) ->
 % user defined headers
 headers([]) -> [];
 headers(Headers) ->
-    HeadersToIgnore = ["host", "upgrade", "connection", "origin",
+    HeadersToIgnore = ["upgrade", "connection", "origin",
                        "sec-websocket-key", "sec-websocket-version",
                        "sec-websocket-protocol"],
     lists:foldl(fun({Name, Value}, Result) ->
